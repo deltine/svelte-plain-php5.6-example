@@ -1,0 +1,65 @@
+version: "3.9"
+
+volumes:
+  db_data:
+
+services:
+  web:
+    container_name: php-web
+    build:
+      context: .
+      dockerfile: ./.infra/docker/php/Dockerfile
+    ports:
+     - "8080:80"
+    # environment:
+    #   # bargeでは、/usr/local/binも追加しておかないと起動できない。
+    #   PATH: ${PATH}:/usr/local/bin:/root/.composer/vendor/bin
+    # volumes:
+    #   - ./app:/var/www/html
+    #   - ./config/apache2/sites-available:/etc/apache2/sites-available
+    volumes:
+      - type: bind
+        source: .
+        target: /workspace
+      - type: bind
+        source: ./app
+        target: /var/www/html
+      - type: bind
+        source: ./.infra/docker/php/mail.ini
+        target: /usr/local/etc/php/conf.d/mail.ini
+    links:
+      - db
+
+  db:
+    container_name: php-db
+    build:
+      context: .
+      dockerfile: ./.infra/docker/mysql/Dockerfile
+    ports:
+      - target: 3306
+        published: ${DB_PORT:-3306}
+        protocol: tcp
+        mode: host
+    volumes:
+      - type: bind
+        source: ./.infra/docker/mysql/conf.d
+        target: /etc/mysql/conf.d
+      - type: volume
+        source: db_data
+        target: /var/lib/mysql
+        volume:
+          nocopy: true
+      - type: bind
+        source: ./log/mysql
+        target: /var/log/mysql
+    environment:
+      - MYSQL_DATABASE=${DB_NAME:-mydb}
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASS:-password}
+      - MYSQL_USER=${DB_USER:-user}
+      - MYSQL_PASSWORD=${DB_PASS:-password}
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 1025:25
+      - 8025:8025
