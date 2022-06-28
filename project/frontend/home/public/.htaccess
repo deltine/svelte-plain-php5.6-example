@@ -1,0 +1,2 @@
+ErrorDocument 404 /home/index.html
+# Redirect permanent / /index.html

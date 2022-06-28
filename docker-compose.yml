@@ -1,34 +1,70 @@
 version: "3.9"
 
+networks:
+  docker-net-001:
+
 volumes:
   db_data:
 
 services:
+  https-portal:
+    image: steveltn/https-portal
+    ports:
+      - 80:80
+      - 443:443
+    restart: always
+    environment:
+      STAGE: local
+      DOMAINS: 'example-home.jp -> http://example-home.jp, example-app.jp -> http://example-app.jp'
+    networks:
+      - docker-net-001
+
   web:
     container_name: php-web
     build:
       context: .
       dockerfile: ./.infra/docker/php/Dockerfile
-    ports:
-     - "8080:80"
-    # environment:
-    #   # bargeでは、/usr/local/binも追加しておかないと起動できない。
-    #   PATH: ${PATH}:/usr/local/bin:/root/.composer/vendor/bin
-    # volumes:
-    #   - ./app:/var/www/html
-    #   - ./config/apache2/sites-available:/etc/apache2/sites-available
+    # ports:
+    #  - "80:80"
     volumes:
       - type: bind
         source: .
         target: /workspace
+        # 設定
       - type: bind
-        source: ./app
-        target: /var/www/html
+        source: ./.infra/docker/php/apache.conf
+        target: /etc/apache2/sites-enabled
       - type: bind
         source: ./.infra/docker/php/mail.ini
         target: /usr/local/etc/php/conf.d/mail.ini
+        # ログは困った時に
+      # - type: bind
+      #   source: ./.log/apache2
+      #   target: /var/log/apache2
+        # デプロイ
+        ## サーバールート※ドメインだけ指定された場合
+      - type: bind
+        source: ./project/frontend/root
+        target: /var/www/html
+        ## ホームページ
+      - type: bind
+        source: ./project/frontend/home/public
+        target: /var/www/html/example-home.jp/
+        ## アプリ
+      - type: bind
+        source: ./project/frontend/app/public
+        target: /var/www/html/example-app.jp/
+        ## API
+      - type: bind
+        source: ./project/backend
+        target: /var/www/html/example-app.jp/api
     links:
       - db
+    networks:
+      docker-net-001:
+        aliases:
+          - example-home.jp
+          - example-app.jp
 
   db:
     container_name: php-db
@@ -49,17 +85,22 @@ services:
         target: /var/lib/mysql
         volume:
           nocopy: true
-      - type: bind
-        source: ./log/mysql
-        target: /var/log/mysql
+        # ログは困った時に
+      # - type: bind
+      #   source: ./.log/mysql
+      #   target: /var/log/mysql
     environment:
       - MYSQL_DATABASE=${DB_NAME:-mydb}
       - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASS:-password}
       - MYSQL_USER=${DB_USER:-user}
       - MYSQL_PASSWORD=${DB_PASS:-password}
+    networks:
+      - docker-net-001
 
   mailhog:
     image: mailhog/mailhog
     ports:
       - 1025:25
       - 8025:8025
+    networks:
+      - docker-net-001

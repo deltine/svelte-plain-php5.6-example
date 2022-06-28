@@ -1,0 +1,18 @@
+# ErrorDocument 404 /home/index.html
+
+# RewriteEngine On
+# RewriteBase /home
+ 
+# RewriteRule ^* index.html  [L,R=301]
+# DirectoryIndex /home/index.html
+
+# RewriteEngine On
+# RewriteBase /
+# RewriteRule / /home2 [L,R=301]
+# RewriteRule ^/$ /home/ [L,R=301]
+# RewriteRule ^(.*)/$ /home  [L,R=301]
+
+# RewriteEngine On
+# RewriteBase /
+# RewriteRule ^$ ver2/ [L]
+# RewriteRule ^(.+)$ ver2/$1 [L]
