@@ -15,4 +15,4 @@ http://example-app.jp/
 http://example-home.jp/
 
 https://example-app.jp/
-https://example-app.jp/
+https://example-home.jp/

@@ -1,4 +1,4 @@
-lockfileVersion: 5.3
+lockfileVersion: 5.4
 
 specifiers:
   '@rollup/plugin-commonjs': ^17.0.0
@@ -21,22 +21,22 @@ specifiers:
 
 dependencies:
   sirv-cli: 2.0.2
-  svelte-navigator: 3.1.6_svelte@3.48.0+typescript@4.7.4
-  svelte-routing: 1.6.0_svelte@3.48.0+typescript@4.7.4
+  svelte-navigator: 3.1.6_lvfi2wesz6u4l5rfbnetbucfmm
+  svelte-routing: 1.6.0_lvfi2wesz6u4l5rfbnetbucfmm
 
 devDependencies:
   '@rollup/plugin-commonjs': 17.1.0_rollup@2.75.7
   '@rollup/plugin-node-resolve': 11.2.1_rollup@2.75.7
-  '@rollup/plugin-typescript': 8.3.3_3720a0066cc05d62339c7fe72fa5a183
+  '@rollup/plugin-typescript': 8.3.3_g4qkabtmybowem44p7ts7jnbqm
   '@tsconfig/svelte': 2.0.1
   rollup: 2.75.7
   rollup-plugin-css-only: 3.1.0_rollup@2.75.7
   rollup-plugin-livereload: 2.0.5
-  rollup-plugin-svelte: 7.1.0_rollup@2.75.7+svelte@3.48.0
+  rollup-plugin-svelte: 7.1.0_oqvu6r7na5sdokb6fyq7tyqy6i
   rollup-plugin-terser: 7.0.2_rollup@2.75.7
   svelte: 3.48.0
   svelte-check: 2.7.2_svelte@3.48.0
-  svelte-preprocess: 4.10.7_svelte@3.48.0+typescript@4.7.4
+  svelte-preprocess: 4.10.7_lvfi2wesz6u4l5rfbnetbucfmm
   tslib: 2.4.0
   typescript: 4.7.4
 
@@ -156,7 +156,7 @@ packages:
       rollup: 2.75.7
     dev: true
 
-  /@rollup/plugin-typescript/8.3.3_3720a0066cc05d62339c7fe72fa5a183:
+  /@rollup/plugin-typescript/8.3.3_g4qkabtmybowem44p7ts7jnbqm:
     resolution: {integrity: sha512-55L9SyiYu3r/JtqdjhwcwaECXP7JeJ9h1Sg1VWRJKIutla2MdZQodTgcCNybXLMCnqpNLEhS2vGENww98L1npg==}
     engines: {node: '>=8.0.0'}
     peerDependencies:
@@ -739,7 +739,7 @@ packages:
       - utf-8-validate
     dev: true
 
-  /rollup-plugin-svelte/7.1.0_rollup@2.75.7+svelte@3.48.0:
+  /rollup-plugin-svelte/7.1.0_oqvu6r7na5sdokb6fyq7tyqy6i:
     resolution: {integrity: sha512-vopCUq3G+25sKjwF5VilIbiY6KCuMNHP1PFvx2Vr3REBNMDllKHFZN2B9jwwC+MqNc3UPKkjXnceLPEjTjXGXg==}
     engines: {node: '>=10'}
     peerDependencies:
@@ -903,7 +903,7 @@ packages:
       picocolors: 1.0.0
       sade: 1.8.1
       svelte: 3.48.0
-      svelte-preprocess: 4.10.7_svelte@3.48.0+typescript@4.7.4
+      svelte-preprocess: 4.10.7_lvfi2wesz6u4l5rfbnetbucfmm
       typescript: 4.7.4
     transitivePeerDependencies:
       - '@babel/core'
@@ -918,18 +918,18 @@ packages:
       - sugarss
     dev: true
 
-  /svelte-navigator/3.1.6_svelte@3.48.0+typescript@4.7.4:
+  /svelte-navigator/3.1.6_lvfi2wesz6u4l5rfbnetbucfmm:
     resolution: {integrity: sha512-abIVURPuWAGSGZLQut2amyI30skc8IOrukaf5lcmnJ6/3E1bPEiNcsgss1TuXkZjjrSRZYTkelpCo/NSIE78cQ==}
     peerDependencies:
       svelte: 3.x
     dependencies:
       svelte: 3.48.0
-      svelte2tsx: 0.1.193_svelte@3.48.0+typescript@4.7.4
+      svelte2tsx: 0.1.193_lvfi2wesz6u4l5rfbnetbucfmm
     transitivePeerDependencies:
       - typescript
     dev: false
 
-  /svelte-preprocess/4.10.7_svelte@3.48.0+typescript@4.7.4:
+  /svelte-preprocess/4.10.7_lvfi2wesz6u4l5rfbnetbucfmm:
     resolution: {integrity: sha512-sNPBnqYD6FnmdBrUmBCaqS00RyCsCpj2BG58A1JBswNF7b0OKviwxqVrOL/CKyJrLSClrSeqQv5BXNg2RUbPOw==}
     engines: {node: '>= 9.11.2'}
     requiresBuild: true
@@ -980,13 +980,13 @@ packages:
       typescript: 4.7.4
     dev: true
 
-  /svelte-routing/1.6.0_svelte@3.48.0+typescript@4.7.4:
+  /svelte-routing/1.6.0_lvfi2wesz6u4l5rfbnetbucfmm:
     resolution: {integrity: sha512-+DbrSGttLA6lan7oWFz1MjyGabdn3tPRqn8Osyc471ut2UgCrzM5x1qViNMc2gahOP6fKbKK1aNtZMJEQP2vHQ==}
     peerDependencies:
       svelte: ^3.20.x
     dependencies:
       svelte: 3.48.0
-      svelte2tsx: 0.1.193_svelte@3.48.0+typescript@4.7.4
+      svelte2tsx: 0.1.193_lvfi2wesz6u4l5rfbnetbucfmm
     transitivePeerDependencies:
       - typescript
     dev: false
@@ -994,9 +994,8 @@ packages:
   /svelte/3.48.0:
     resolution: {integrity: sha512-fN2YRm/bGumvjUpu6yI3BpvZnpIm9I6A7HR4oUNYd7ggYyIwSA/BX7DJ+UXXffLp6XNcUijyLvttbPVCYa/3xQ==}
     engines: {node: '>= 8'}
-    dev: true
 
-  /svelte2tsx/0.1.193_svelte@3.48.0+typescript@4.7.4:
+  /svelte2tsx/0.1.193_lvfi2wesz6u4l5rfbnetbucfmm:
     resolution: {integrity: sha512-vzy4YQNYDnoqp2iZPnJy7kpPAY6y121L0HKrSBjU/IWW7DQ6T7RMJed2VVHFmVYm0zAGYMDl9urPc6R4DDUyhg==}
     peerDependencies:
       svelte: ^3.24
@@ -1043,7 +1042,6 @@ packages:
     resolution: {integrity: sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==}
     engines: {node: '>=4.2.0'}
     hasBin: true
-    dev: true
 
   /wrappy/1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
