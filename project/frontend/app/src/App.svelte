@@ -1,30 +1,44 @@
 <script lang="ts">
-	// import { Router, Link, Route } from "svelte-routing";
 	import { Router, Route, Link } from "svelte-navigator";
-	import LoginCheck from "./routes/LoginCheck.svelte";
 
-	// export let url = "";
+	// import "carbon-components-svelte/css/all.css";
+	// import {
+	// 	Theme,
+	// 	RadioButtonGroup,
+	// 	RadioButton,
+	// } from "carbon-components-svelte";
+
+	// import { CarbonTheme } from "carbon-com";
+
+	// type CarbonTheme = "white" | "g10" | "g80" | "g90" | "g100";
+	// let theme: CarbonTheme = "g90";
+
+	import { Theme } from "carbon-components-svelte";
+
+	import LoginCheck from "./routes/LoginCheck.svelte";
+	import Page from "./routes/Page.svelte";
 </script>
 
-<!-- <Router {url}>
-	<nav>
-		<Link to="/">Home</Link>
-		<Link to="loginCheck">LoginCheck</Link>
-		<Link to="blog">Blog</Link>
-	</nav>
-	<div>
-		<Route path="loginCheck" component={LoginCheck} />
-	</div>
-</Router> -->
+<!-- <Theme bind:theme />
+
+<RadioButtonGroup legendText="Carbon theme" bind:selected={theme}>
+	{#each ["white", "g10", "g80", "g90", "g100"] as value}
+		<RadioButton labelText={value} {value} />
+	{/each}
+</RadioButtonGroup> -->
+
+<Theme render="toggle" />
 
 <Router primary={false}>
 	<header>
-		<h1>History</h1>
+		<h1>Example</h1>
+		<h2>This is App.svelte</h2>
 
 		<nav>
 			<Link to="/">Home</Link>
 			<Link to="loginCheck">LoginCheck</Link>
-			<Link to="profile">Profile</Link>
+			<Link to="page">page</Link>
+			<Link to="about">about</Link>
 		</nav>
 	</header>
 
@@ -33,9 +47,8 @@
 			<LoginCheck />
 		</Route>
 
-		<Route path="/">
-			<h3>Home</h3>
-			<p>Home sweet home...</p>
+		<Route path="page">
+			<Page />
 		</Route>
 
 		<Route path="about">
@@ -44,5 +57,3 @@
 		</Route>
 	</main>
 </Router>
-
-Home
