@@ -3,14 +3,16 @@
 	import { onMount } from "svelte";
 
 	onMount(async () => {
-		const url = "api/api/get_accounts.php";
+		const url = "api/get_accounts.php";
 		let response = await fetch(url);
-		console.log(response);
-		// console.log(response.ok);
-		// let res2 = await response.json();
+		// console.log(response);
 		let json = await response.json();
-		console.log("json4", json);
-		$accounts = json.data;
+		// console.log("json", json);
+		if (json.status == 1) {
+			$accounts = json.data;
+		} else {
+			$accounts = ["record not found"];
+		}
 	});
 
 	let userName = "user1";

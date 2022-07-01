@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { Router, Route, Link } from "svelte-navigator";
 
+	import "carbon-components-svelte/css/all.css";
+
 	// import "carbon-components-svelte/css/all.css";
 	// import {
 	// 	Theme,
