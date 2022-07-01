@@ -1,3 +1,4 @@
+drop table account;
 CREATE TABLE `account` (
   `account_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'アカウントID',
   `account_name` varchar(255) DEFAULT NULL COMMENT 'アカウント名',
@@ -7,8 +8,10 @@ CREATE TABLE `account` (
   `updated_at` timestamp NULL DEFAULT NULL COMMENT '更新日',
   `deleted_at` timestamp NULL DEFAULT NULL COMMENT '削除フラグ',
   PRIMARY KEY (`account_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=117 DEFAULT CHARSET=utf8 COMMENT='アカウント';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='アカウント';
 
 select * from account;
+INSERT INTO `mydb`.`account` (`account_name`, `email`, `password`, `created_at`, `updated_at`) VALUES ('a1', 'a2', 'a3', now(), now());
+INSERT INTO `mydb`.`account` (`account_name`, `email`, `password`, `created_at`, `updated_at`) VALUES ('b1', 'b2', 'b3', now(), now());
 INSERT INTO `mydb`.`account` (`account_name`, `email`, `password`, `created_at`, `updated_at`) VALUES ('c1', 'c2', 'c3', now(), now());
 INSERT INTO account (`account_name`, `email`, `password`, `created_at`, `updated_at`) (select `account_name`, `email`, `password`, `created_at`, `updated_at` FROM account);

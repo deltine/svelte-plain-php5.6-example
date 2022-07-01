@@ -40,9 +40,11 @@
 	let pagination: {
 		pageSize: number;
 		page: number;
+		totalItems: number;
 	} = {
-		pageSize: 52,
+		pageSize: 10,
 		page: 1,
+		totalItems: 0,
 	};
 
 	// pagination = {
@@ -61,10 +63,15 @@
 			$accounts = json.data;
 			rows = json.data;
 			console.log("rows", rows);
+			pagination.totalItems = rows.length;
 		} else {
 			$accounts = ["record not found"];
 		}
 	});
+	function doSort(e: CustomEvent) {
+		console.log("e.detail.header.key", e.detail.header.key);
+		console.log("e.detail.sortDirection", e.detail.sortDirection);
+	}
 </script>
 
 pagess
@@ -77,11 +84,12 @@ pagess
 	page={pagination.page}
 	{headers}
 	{rows}
+	on:click:header={doSort}
 />
 
-<Pagination
+<!-- <Pagination
 	bind:pageSize={pagination.pageSize}
 	bind:page={pagination.page}
-	totalItems={512}
+	totalItems={pagination.totalItems}
 	pageSizeInputDisabled
-/>
+/> -->
