@@ -2,7 +2,6 @@
 	import { onMount } from "svelte";
 	import { Button, DataTable, Pagination } from "carbon-components-svelte";
 
-	import { accounts } from "./data-accounts";
 	import { accountPaginateSetting, AccountPaginateSetting } from "./store";
 
 	let headers = [
@@ -28,8 +27,8 @@
 	];
 
 	type AccountRecord = {
-		id: string;
-		account_id: string;
+		id: number;
+		account_id: number;
 		account_name: string;
 		email: string;
 		password: number;
@@ -69,7 +68,18 @@
 		});
 		// console.log(response);
 		let json = await response.json();
-		console.log("onMount_json", json);
+
+		if (json.status == 1) {
+			// 正常
+			rows = json.data;
+			// console.log("onMount_json", json);
+			accSetting.page = json.page;
+			accSetting.pageSize = json.pageSize;
+			accSetting.totalItems = json.totalItems;
+			// console.log("accSetting", accSetting);
+		} else {
+			console.log("onMount_error");
+		}
 
 		// if (json.status == true) {
 		// 	console.log("onMount_json_test");
@@ -83,7 +93,8 @@
 	}
 
 	async function doPage(e: CustomEvent) {
-		console.log("e", e);
+		console.log("doPage");
+		// console.log("e", e);
 		// console.log("e.detail.header.key", e.detail.header.key);
 		// console.log("e.detail.sortDirection", e.detail.sortDirection);
 		console.log("accSetting", accSetting);
@@ -91,23 +102,37 @@
 		const response = await fetch("api/get_accounts_paginate.php", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({
-				page: 2,
-				pageSizes: 50,
-				sortKey: "account_id",
-				sortDirection: "descending",
-			}),
+			body: JSON.stringify(accSetting),
 		});
 		// console.log(response);
 		let json = await response.json();
+
+		if (json.status == 1) {
+			// 正常
+			// console.log("doPage_json", json);
+
+			rows = json.data;
+			// rows.forEach((value, index) => {
+			// 	value.id = index + 1;
+			// });
+
+			console.log("doPage_rows", rows);
+
+			accSetting.page = json.page;
+			accSetting.pageSize = json.pageSize;
+			accSetting.totalItems = json.totalItems;
+			// console.log("accSetting", accSetting);
+		} else {
+			console.log("doPage_error");
+		}
 	}
 
 	function doFetch() {
 		console.log("doFetch!");
 		rows = [
 			{
-				id: "1",
-				account_id: "1",
+				id: 1,
+				account_id: 1,
 				account_name: "name",
 				email: "email",
 				password: 123,
@@ -155,7 +180,6 @@ pages
 	title="accounts title dayo"
 	description="accounts description dayo."
 	pageSize={accSetting.pageSize}
-	page={accSetting.page}
 	{headers}
 	{rows}
 	on:click:header={doSort}

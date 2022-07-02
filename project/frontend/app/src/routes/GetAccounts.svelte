@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from "svelte";
-	import { Button, DataTable, Pagination } from "carbon-components-svelte";
+	import { DataTable, Pagination } from "carbon-components-svelte";
 
 	import { accounts } from "./data-accounts";
 

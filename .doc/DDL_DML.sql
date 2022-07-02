@@ -17,3 +17,4 @@ INSERT INTO `mydb`.`account` (`account_name`, `email`, `password`, `created_at`,
 INSERT INTO account (`account_name`, `email`, `password`, `created_at`, `updated_at`) (select `account_name`, `email`, `password`, `created_at`, `updated_at` FROM account);
 
 select * from account order by account_id limit 0, 10;
+select * from account order by account_id limit 9, 10;

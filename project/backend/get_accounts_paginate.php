@@ -38,20 +38,20 @@ if (isset($requestBody['sortDirection']) && is_string($requestBody['sortDirectio
 try {
 	$count_sql = "select count(*) from account;";
 	$count_state = $db->query($count_sql);
-	$count_result = $count_state->fetch(PDO::FETCH_COLUMN);
+	$totalItems = $count_state->fetch(PDO::FETCH_COLUMN);
 
 	// $q = $db->prepare('select acc.account_id as id, acc.* from account acc;');
 	// $q->execute();
 	// $rows = $q->fetchAll();
 
-	$sql = "select * from account";
+	$sql = "select acc.account_id as id, acc.* from account acc";
 	$sql .= " order by " . $sortKey . " limit " . (($page - 1) * $pageSizes) . ", " . $pageSizes;
 	$state = $db->query($sql);
 	$rows = $state->fetchAll();
 
 	$response = array(
 		"status" => true,
-		"count" => $count_result,
+		"totalItems" => $totalItems,
 		"page" => $page,
 		"pageSizes" => $pageSizes,
 		"sortKey" => $sortKey,
