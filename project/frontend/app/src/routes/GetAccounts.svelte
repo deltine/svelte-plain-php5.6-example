@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from "svelte";
-	import { DataTable, Pagination } from "carbon-components-svelte";
+	import { Button, DataTable, Pagination } from "carbon-components-svelte";
 
 	import { accounts } from "./data-accounts";
 
@@ -42,15 +42,10 @@
 		page: number;
 		totalItems: number;
 	} = {
-		pageSize: 10,
+		pageSize: 50,
 		page: 1,
 		totalItems: 0,
 	};
-
-	// pagination = {
-	// 	pageSize: 52,
-	// 	page: 1,
-	// };
 
 	onMount(async () => {
 		const url = "api/get_accounts.php";
@@ -68,13 +63,22 @@
 			$accounts = ["record not found"];
 		}
 	});
+
 	function doSort(e: CustomEvent) {
 		console.log("e.detail.header.key", e.detail.header.key);
 		console.log("e.detail.sortDirection", e.detail.sortDirection);
+		console.log("pagination", pagination);
+	}
+
+	function doPage(e: CustomEvent) {
+		console.log("e", e);
+		// console.log("e.detail.header.key", e.detail.header.key);
+		// console.log("e.detail.sortDirection", e.detail.sortDirection);
+		console.log("pagination", pagination);
 	}
 </script>
 
-pagess
+get_accounts
 
 <DataTable
 	sortable
@@ -87,9 +91,11 @@ pagess
 	on:click:header={doSort}
 />
 
-<!-- <Pagination
+<Pagination
 	bind:pageSize={pagination.pageSize}
 	bind:page={pagination.page}
+	pageSizes={[5, 50, 100]}
 	totalItems={pagination.totalItems}
-	pageSizeInputDisabled
-/> -->
+	on:click:button--next={doPage}
+	on:click:button--previous={doPage}
+/>

@@ -15,3 +15,5 @@ INSERT INTO `mydb`.`account` (`account_name`, `email`, `password`, `created_at`,
 INSERT INTO `mydb`.`account` (`account_name`, `email`, `password`, `created_at`, `updated_at`) VALUES ('b1', 'b2', 'b3', now(), now());
 INSERT INTO `mydb`.`account` (`account_name`, `email`, `password`, `created_at`, `updated_at`) VALUES ('c1', 'c2', 'c3', now(), now());
 INSERT INTO account (`account_name`, `email`, `password`, `created_at`, `updated_at`) (select `account_name`, `email`, `password`, `created_at`, `updated_at` FROM account);
+
+select * from account order by account_id limit 0, 10;

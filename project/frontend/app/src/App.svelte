@@ -18,7 +18,8 @@
 	import { Theme } from "carbon-components-svelte";
 
 	import LoginCheck from "./routes/LoginCheck.svelte";
-	import Page from "./routes/Page.svelte";
+	import GetAccounts from "./routes/GetAccounts.svelte";
+	import Pagination from "./routes/Pagination.svelte";
 </script>
 
 <!-- <Theme bind:theme />
@@ -39,7 +40,8 @@
 		<nav>
 			<Link to="/">Home</Link>
 			<Link to="loginCheck">LoginCheck</Link>
-			<Link to="page">page</Link>
+			<Link to="getAccounts">GetAccounts</Link>
+			<Link to="pagination">Pagination</Link>
 			<Link to="about">about</Link>
 		</nav>
 	</header>
@@ -49,8 +51,12 @@
 			<LoginCheck />
 		</Route>
 
-		<Route path="page">
-			<Page />
+		<Route path="getAccounts">
+			<GetAccounts />
+		</Route>
+
+		<Route path="pagination">
+			<Pagination />
 		</Route>
 
 		<Route path="about">
