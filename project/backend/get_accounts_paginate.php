@@ -4,6 +4,7 @@ header('Access-Control-Allow-Origin: *');
 header('Context-Type: application/json');
 
 require_once(__DIR__ . '/protected/database.php');
+require_once(__DIR__ . '/protected/logger.php');
 
 // POSTリクエスト取得
 $requestBodyJson = file_get_contents('php://input');
@@ -23,14 +24,14 @@ if (isset($requestBody['pageSizes']) && is_numeric($requestBody['pageSizes'])) {
 	$pageSizes = $requestBody['pageSizes'];
 }
 
-// ソートキー
-$sortKey = "account_id";
-if (isset($requestBody['account_id']) && is_numeric($requestBody['account_id'])) {
-	$sortKey = $requestBody['account_id'];
+// ソートキー※account_id等
+$sortKey = "";
+if (isset($requestBody['sortKey']) && is_string($requestBody['sortKey'])) {
+	$sortKey = $requestBody['sortKey'];
 }
 
 // ソート順※ascending/descending
-$sortDirection = "ascending";
+$sortDirection = "";
 if (isset($requestBody['sortDirection']) && is_string($requestBody['sortDirection'])) {
 	$sortDirection = $requestBody['sortDirection'];
 }
@@ -45,7 +46,22 @@ try {
 	// $rows = $q->fetchAll();
 
 	$sql = "select acc.account_id as id, acc.* from account acc";
-	$sql .= " order by " . $sortKey . " limit " . (($page - 1) * $pageSizes) . ", " . $pageSizes;
+
+	// ソート
+	// $sql_test = $sql;
+	if ($sortKey !== "") {
+		$sortDir = "asc";
+		if ($sortDirection === "descending") {
+			$sortDir = "desc";
+		}
+		$sql .= " order by " . $sortKey . " " . $sortDir;
+	}
+
+	// リミット
+	$sql .= " limit " . (($page - 1) * $pageSizes) . ", " . $pageSizes;
+
+	// $Logger->info($sql);
+
 	$state = $db->query($sql);
 	$rows = $state->fetchAll();
 

@@ -66,8 +66,9 @@
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(accSetting),
 		});
-		// console.log(response);
+		console.log(response);
 		let json = await response.json();
+		console.log("onMount_json", json);
 
 		if (json.status == 1) {
 			// 正常
@@ -86,18 +87,15 @@
 		// }
 	});
 
-	function doSort(e: CustomEvent) {
+	async function doSort(e: CustomEvent) {
 		console.log("e.detail.header.key", e.detail.header.key);
 		console.log("e.detail.sortDirection", e.detail.sortDirection);
-		console.log("accSetting", accSetting);
-	}
 
-	async function doPage(e: CustomEvent) {
-		console.log("doPage");
-		// console.log("e", e);
-		// console.log("e.detail.header.key", e.detail.header.key);
-		// console.log("e.detail.sortDirection", e.detail.sortDirection);
+		accSetting.sortKey = e.detail.header.key;
+		accSetting.sortDirection = e.detail.sortDirection;
 		console.log("accSetting", accSetting);
+
+		accountPaginateSetting.set(accSetting);
 
 		const response = await fetch("api/get_accounts_paginate.php", {
 			method: "POST",
@@ -106,6 +104,7 @@
 		});
 		// console.log(response);
 		let json = await response.json();
+		console.log("doSort_json", json);
 
 		if (json.status == 1) {
 			// 正常
@@ -122,6 +121,43 @@
 			accSetting.pageSize = json.pageSize;
 			accSetting.totalItems = json.totalItems;
 			// console.log("accSetting", accSetting);
+		} else {
+			console.log("doPage_error");
+		}
+	}
+
+	async function doPage(e: CustomEvent) {
+		console.log("doPage");
+		// console.log("e", e);
+		// console.log("e.detail.header.key", e.detail.header.key);
+		// console.log("e.detail.sortDirection", e.detail.sortDirection);
+		console.log("accSetting", accSetting);
+
+		const response = await fetch("api/get_accounts_paginate.php", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(accSetting),
+		});
+		// console.log(response);
+		let json = await response.json();
+		// console.log("doPage_json", json);
+
+		if (json.status == 1) {
+			// 正常
+			// console.log("doPage_json", json);
+
+			rows = json.data;
+			// rows.forEach((value, index) => {
+			// 	value.id = index + 1;
+			// });
+
+			console.log("doPage_rows", rows);
+
+			accSetting.page = json.page;
+			accSetting.pageSize = json.pageSize;
+			accSetting.totalItems = json.totalItems;
+			// console.log("accSetting", accSetting);
+			accountPaginateSetting.set(accSetting);
 		} else {
 			console.log("doPage_error");
 		}
