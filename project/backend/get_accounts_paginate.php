@@ -19,9 +19,9 @@ if (isset($requestBody['page']) && is_numeric($requestBody['page'])) {
 }
 
 // ページサイズ※存在しない場合は5とする
-$pageSizes = 5;
-if (isset($requestBody['pageSizes']) && is_numeric($requestBody['pageSizes'])) {
-	$pageSizes = $requestBody['pageSizes'];
+$pageSize = 5;
+if (isset($requestBody['pageSize']) && is_numeric($requestBody['pageSize'])) {
+	$pageSize = $requestBody['pageSize'];
 }
 
 // ソートキー※account_id等
@@ -58,7 +58,7 @@ try {
 	}
 
 	// リミット
-	$sql .= " limit " . (($page - 1) * $pageSizes) . ", " . $pageSizes;
+	$sql .= " limit " . (($page - 1) * $pageSize) . ", " . $pageSize;
 
 	// $Logger->info($sql);
 
@@ -69,7 +69,7 @@ try {
 		"status" => true,
 		"totalItems" => $totalItems,
 		"page" => $page,
-		"pageSizes" => $pageSizes,
+		"pageSize" => $pageSize,
 		"sortKey" => $sortKey,
 		"sortDirection" => $sortDirection,
 		"data" => $rows

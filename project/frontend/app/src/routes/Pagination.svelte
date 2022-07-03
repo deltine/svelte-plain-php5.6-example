@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import { Button, DataTable, Pagination } from "carbon-components-svelte";
+	import lodash from "lodash";
 
 	import { accountPaginateSetting, AccountPaginateSetting } from "./store";
 
@@ -38,129 +39,50 @@
 	};
 
 	let rows: AccountRecord[];
-
 	let accSetting: AccountPaginateSetting;
+	let accSettingBk: AccountPaginateSetting;
+
 	accountPaginateSetting.subscribe((value) => {
 		accSetting = value;
 	});
 
 	onMount(async () => {
 		console.log("onMount");
-		// const url = "api/get_accounts.php";
-		// let response = await fetch(url);
-		// // console.log(response);
-		// let json = await response.json();
-		// console.log("json", json);
-		// console.log("testdata", json.data[0].account_id);
-		// if (json.status == 1) {
-		// 	$accounts = json.data;
-		// 	rows = json.data;
-		// 	console.log("rows", rows);
-		// 	accountPaginateSetting.set(accSetting);
-		// } else {
-		// 	$accounts = ["record not found"];
-		// }
 
-		const response = await fetch("api/get_accounts_paginate.php", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(accSetting),
-		});
-		console.log(response);
-		let json = await response.json();
-		console.log("onMount_json", json);
-
-		if (json.status == 1) {
-			// 正常
-			rows = json.data;
-			// console.log("onMount_json", json);
-			accSetting.page = json.page;
-			accSetting.pageSize = json.pageSize;
-			accSetting.totalItems = json.totalItems;
-			// console.log("accSetting", accSetting);
-		} else {
-			console.log("onMount_error");
-		}
-
-		// if (json.status == true) {
-		// 	console.log("onMount_json_test");
-		// }
+		accSettingBk = lodash.cloneDeep(accSetting);
+		updateAccounts();
 	});
 
-	async function doSort(e: CustomEvent) {
-		console.log("e.detail.header.key", e.detail.header.key);
-		console.log("e.detail.sortDirection", e.detail.sortDirection);
+	async function doSort() {
+		console.log("doSort");
+		// console.log("e.detail.header.key", e.detail.header.key);
+		// console.log("e.detail.sortDirection", e.detail.sortDirection);
 
-		accSetting.sortKey = e.detail.header.key;
-		accSetting.sortDirection = e.detail.sortDirection;
+		// accSetting.sortKey = e.detail.header.key;
+		// accSetting.sortDirection = e.detail.sortDirection;
+		// console.log("accSetting", accSetting);
+
+		// accountPaginateSetting.set(accSetting);
+
+		updateAccounts();
+	}
+
+	async function doUpdate() {
+		console.log("doUpdate");
+
 		console.log("accSetting", accSetting);
-
-		accountPaginateSetting.set(accSetting);
-
-		const response = await fetch("api/get_accounts_paginate.php", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(accSetting),
-		});
-		// console.log(response);
-		let json = await response.json();
-		console.log("doSort_json", json);
-
-		if (json.status == 1) {
-			// 正常
-			// console.log("doPage_json", json);
-
-			rows = json.data;
-			// rows.forEach((value, index) => {
-			// 	value.id = index + 1;
-			// });
-
-			console.log("doPage_rows", rows);
-
-			accSetting.page = json.page;
-			accSetting.pageSize = json.pageSize;
-			accSetting.totalItems = json.totalItems;
-			// console.log("accSetting", accSetting);
-		} else {
-			console.log("doPage_error");
+		console.log("accSettingBk", accSettingBk);
+		if (JSON.stringify(accSetting) !== JSON.stringify(accSettingBk)) {
+			console.log("doUpdate_getAccounts");
+			accSettingBk = lodash.cloneDeep(accSetting);
+			// accountPaginateSetting.set(accSetting);
+			updateAccounts();
 		}
 	}
 
-	async function doPage(e: CustomEvent) {
-		console.log("doPage");
-		// console.log("e", e);
-		// console.log("e.detail.header.key", e.detail.header.key);
-		// console.log("e.detail.sortDirection", e.detail.sortDirection);
-		console.log("accSetting", accSetting);
-
-		const response = await fetch("api/get_accounts_paginate.php", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(accSetting),
-		});
-		// console.log(response);
-		let json = await response.json();
-		// console.log("doPage_json", json);
-
-		if (json.status == 1) {
-			// 正常
-			// console.log("doPage_json", json);
-
-			rows = json.data;
-			// rows.forEach((value, index) => {
-			// 	value.id = index + 1;
-			// });
-
-			console.log("doPage_rows", rows);
-
-			accSetting.page = json.page;
-			accSetting.pageSize = json.pageSize;
-			accSetting.totalItems = json.totalItems;
-			// console.log("accSetting", accSetting);
-			accountPaginateSetting.set(accSetting);
-		} else {
-			console.log("doPage_error");
-		}
+	async function doPage() {
+		// console.log("doPage");
+		// updateAccounts();
 	}
 
 	function doFetch() {
@@ -181,32 +103,36 @@
 
 	async function doGetAccountsTest() {
 		console.log("doGetAccountsTest!");
+		// updateAccounts();
+	}
+
+	async function updateAccounts() {
 		const response = await fetch("api/get_accounts_paginate.php", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({
-				page: 2,
-				pageSizes: 50,
-				sortKey: "account_id",
-				sortDirection: "descending",
-			}),
+			body: JSON.stringify(accSetting),
 		});
 		// console.log(response);
 		let json = await response.json();
-		console.log("json", json);
-		// console.log("testdata", json.data[0].account_id);
-		// if (json.status == 1) {
-		// 	$accounts = json.data;
-		// 	rows = json.data;
-		// 	console.log("rows", rows);
-		// 	pagination.totalItems = rows.length;
-		// } else {
-		// 	$accounts = ["record not found"];
-		// }
+		// console.log("doPage_json", json);
+
+		if (json.status == 1) {
+			// 正常
+			rows = json.data;
+			console.log("doPage_rows", rows);
+
+			accSetting.page = json.page;
+			accSetting.pageSize = json.pageSize;
+			accSetting.totalItems = json.totalItems;
+			// console.log("accSetting", accSetting);
+			accountPaginateSetting.set(accSetting);
+		} else {
+			console.log("doPage_error");
+		}
 	}
 </script>
 
-pages
+<div>pages</div>
 
 <Button on:click={doFetch}>doFetch</Button>
 <Button on:click={doGetAccountsTest}>doGetAccountsTest</Button>
@@ -226,6 +152,7 @@ pages
 	bind:page={accSetting.page}
 	pageSizes={[5, 50, 100]}
 	totalItems={accSetting.totalItems}
+	on:update={doUpdate}
 	on:click:button--next={doPage}
 	on:click:button--previous={doPage}
 />

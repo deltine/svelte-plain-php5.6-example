@@ -7,6 +7,7 @@ specifiers:
   '@tsconfig/svelte': ^2.0.1
   carbon-components-svelte: ^0.67.0
   carbon-preprocess-svelte: ^0.9.1
+  lodash: ^4.17.21
   rollup: ^2.75.7
   rollup-plugin-css-only: ^3.1.0
   rollup-plugin-livereload: ^2.0.5
@@ -15,6 +16,7 @@ specifiers:
   sirv-cli: ^2.0.2
   svelte: ^3.48.0
   svelte-check: ^2.8.0
+  svelte-local-storage-store: ^0.2.6
   svelte-navigator: ^3.1.6
   svelte-preprocess: ^4.10.7
   svelte-routing: ^1.6.0
@@ -23,7 +25,9 @@ specifiers:
 
 dependencies:
   carbon-preprocess-svelte: 0.9.1_svelte@3.48.0
+  lodash: 4.17.21
   sirv-cli: 2.0.2
+  svelte-local-storage-store: 0.2.6_svelte@3.48.0
   svelte-navigator: 3.1.6_lvfi2wesz6u4l5rfbnetbucfmm
   svelte-routing: 1.6.0_lvfi2wesz6u4l5rfbnetbucfmm
 
@@ -589,6 +593,10 @@ packages:
     engines: {node: '>=6'}
     dev: false
 
+  /lodash/4.17.21:
+    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+    dev: false
+
   /lower-case/2.0.2:
     resolution: {integrity: sha512-7fm3l3NAF9WfN6W3JOmf5drwpVqX78JtoGJ3A6W0a6ZnldM41w2fV5D490psKFTpMds8TJse/eHLFFsNHHjHgg==}
     dependencies:
@@ -973,6 +981,15 @@ packages:
       - stylus
       - sugarss
     dev: true
+
+  /svelte-local-storage-store/0.2.6_svelte@3.48.0:
+    resolution: {integrity: sha512-7QLCZ4V/0ydvZRyVChNYx7gVkprzrkACD63PpZINy5oFv9nE+5CAP94QN3NBI2awPeDB+cpUzNCB4Q0Yjr9CYQ==}
+    engines: {node: '>=0.14'}
+    peerDependencies:
+      svelte: ^3.44.1
+    dependencies:
+      svelte: 3.48.0
+    dev: false
 
   /svelte-navigator/3.1.6_lvfi2wesz6u4l5rfbnetbucfmm:
     resolution: {integrity: sha512-abIVURPuWAGSGZLQut2amyI30skc8IOrukaf5lcmnJ6/3E1bPEiNcsgss1TuXkZjjrSRZYTkelpCo/NSIE78cQ==}
