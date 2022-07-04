@@ -53,14 +53,14 @@
 		updateAccounts();
 	});
 
-	async function doSort() {
+	async function doSort(e: CustomEvent) {
 		console.log("doSort");
 		// console.log("e.detail.header.key", e.detail.header.key);
 		// console.log("e.detail.sortDirection", e.detail.sortDirection);
 
-		// accSetting.sortKey = e.detail.header.key;
-		// accSetting.sortDirection = e.detail.sortDirection;
-		// console.log("accSetting", accSetting);
+		accSetting.sortKey = e.detail.header.key;
+		accSetting.sortDirection = e.detail.sortDirection;
+		console.log("doSort_accSetting", accSetting);
 
 		// accountPaginateSetting.set(accSetting);
 
@@ -78,11 +78,6 @@
 			// accountPaginateSetting.set(accSetting);
 			updateAccounts();
 		}
-	}
-
-	async function doPage() {
-		// console.log("doPage");
-		// updateAccounts();
 	}
 
 	function doFetch() {
@@ -103,7 +98,7 @@
 
 	async function doGetAccountsTest() {
 		console.log("doGetAccountsTest!");
-		// updateAccounts();
+		updateAccounts();
 	}
 
 	async function updateAccounts() {
@@ -124,7 +119,7 @@
 			accSetting.page = json.page;
 			accSetting.pageSize = json.pageSize;
 			accSetting.totalItems = json.totalItems;
-			// console.log("accSetting", accSetting);
+			console.log("accSetting", accSetting);
 			accountPaginateSetting.set(accSetting);
 		} else {
 			console.log("doPage_error");
@@ -142,6 +137,8 @@
 	title="accounts title dayo"
 	description="accounts description dayo."
 	pageSize={accSetting.pageSize}
+	sortKey={accSetting.sortKey}
+	sortDirection={accSetting.sortDirection}
 	{headers}
 	{rows}
 	on:click:header={doSort}
@@ -153,6 +150,4 @@
 	pageSizes={[5, 50, 100]}
 	totalItems={accSetting.totalItems}
 	on:update={doUpdate}
-	on:click:button--next={doPage}
-	on:click:button--previous={doPage}
 />

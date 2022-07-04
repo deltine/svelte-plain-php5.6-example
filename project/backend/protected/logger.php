@@ -1,29 +1,29 @@
 <?php
 
+date_default_timezone_set('Asia/Tokyo');
+
 class Logger
 {
-    private $path = '/var/tmp/error_test.log';
-    // private $currentdate = date("m/d H:i:s");
+    private static $path = '/var/tmp/error_test.log';
 
-    public function logPrint($message)
+    public static function logPrint($message)
     {
-        $currentdate = date("m/d H:i:s");
-        $logmessages = $this->currentdate . " : " . $message;
-        error_log($logmessages . "\n", 3, $this->path);
+        $logMessages =  date("m/d H:i:s") . " : " . $message;
+        error_log($logMessages . "\n", 3, Logger::$path);
     }
 
-    public function debug($message)
+    public static function debug($message)
     {
-        $this->logPrint("[debug]" . $message);
+        Logger::logPrint("[debug]" . $message);
     }
 
-    public function info($message)
+    public static function info($message)
     {
-        $this->logPrint("[info]" . $message);
+        Logger::logPrint("[info]" . $message);
     }
 
-    public function error($message)
+    public static function error($message)
     {
-        $this->logPrint("[error]" . $message);
+        Logger::logPrint("[error]" . $message);
     }
 };

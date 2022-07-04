@@ -60,7 +60,7 @@ try {
 	// リミット
 	$sql .= " limit " . (($page - 1) * $pageSize) . ", " . $pageSize;
 
-	// $Logger->info($sql);
+	Logger::info($sql);
 
 	$state = $db->query($sql);
 	$rows = $state->fetchAll();
