@@ -38,7 +38,9 @@ if (isset($requestBody['sortDirection']) && is_string($requestBody['sortDirectio
 
 try {
 	$count_sql = "select count(*) from account;";
+	var_dump($db);
 	$count_state = $db->query($count_sql);
+	var_dump($count_state);
 	$totalItems = $count_state->fetch(PDO::FETCH_COLUMN);
 
 	// $q = $db->prepare('select acc.account_id as id, acc.* from account acc;');

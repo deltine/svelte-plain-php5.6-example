@@ -11,8 +11,8 @@ C:\Windows\System32\drivers\etc\hosts
 ## 理由
 
 以下のURLで各webアプリへアクセスするため
-http://example-app.jp/
-http://example-home.jp/
+<http://example-app.jp/>
+<http://example-home.jp/>
 
-https://example-app.jp/
-https://example-home.jp/
+<https://example-app.jp/>
+<https://example-home.jp/>
