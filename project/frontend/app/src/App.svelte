@@ -1,67 +1,69 @@
 <script lang="ts">
 	import { Router, Route, Link } from "svelte-navigator";
-
-	
-
-	// import "carbon-components-svelte/css/all.css";
-	// import {
-	// 	Theme,
-	// 	RadioButtonGroup,
-	// 	RadioButton,
-	// } from "carbon-components-svelte";
-
-	// import { CarbonTheme } from "carbon-com";
-
-	// type CarbonTheme = "white" | "g10" | "g80" | "g90" | "g100";
-	// let theme: CarbonTheme = "g90";
-
-	import { Theme } from "carbon-components-svelte";
-
+	import type { CarbonTheme } from "carbon-components-svelte/types/Theme/Theme.svelte";
 	import LoginCheck from "./routes/LoginCheck.svelte";
 	import GetAccounts from "./routes/GetAccounts.svelte";
 	import Pagination from "./routes/Pagination.svelte";
+	import { carbonTheme } from "./routes/store";
+	import { Theme, RadioButtonGroup, RadioButton } from "carbon-components-svelte";
+
+	let theme: CarbonTheme;
+
+	carbonTheme.subscribe((value) => {
+		theme = value;
+	});
+	// $: console.log("theme", theme);
+	$: carbonTheme.set(theme);
 </script>
 
-<!-- <Theme bind:theme />
+<div>
+	<Router primary={false}>
+		<header>
+			<h1>Example</h1>
+			<h2>This is App.svelte</h2>
 
-<RadioButtonGroup legendText="Carbon theme" bind:selected={theme}>
-	{#each ["white", "g10", "g80", "g90", "g100"] as value}
-		<RadioButton labelText={value} {value} />
-	{/each}
-</RadioButtonGroup> -->
+			<Theme bind:theme />
 
-<Theme render="toggle" />
+			<RadioButtonGroup legendText="Carbon theme" bind:selected={theme} class="pt-6">
+				{#each ["white", "g10", "g80", "g90", "g100"] as value}
+					<RadioButton labelText={value} {value} />
+				{/each}
+			</RadioButtonGroup>
 
-<Router primary={false}>
-	<header>
-		<h1>Example</h1>
-		<h2>This is App.svelte</h2>
+			<nav class="pt-6 text-xl">
+				<Link class="pl-0" to="/">Home</Link>
+				<Link class="pl-6" to="loginCheck">LoginCheck</Link>
+				<Link class="pl-6" to="getAccounts">GetAccounts</Link>
+				<Link class="pl-6" to="pagination">Pagination</Link>
+				<Link class="pl-6" to="about">about</Link>
+			</nav>
+		</header>
 
-		<nav>
-			<Link to="/">Home</Link>
-			<Link to="loginCheck">LoginCheck</Link>
-			<Link to="getAccounts">GetAccounts</Link>
-			<Link to="pagination">Pagination</Link>
-			<Link to="about">about</Link>
-		</nav>
-	</header>
+		<main class="pt-6">
+			<Route path="">Home!</Route>
 
-	<main>
-		<Route path="loginCheck">
-			<LoginCheck />
-		</Route>
+			<Route path="loginCheck">
+				<LoginCheck />
+			</Route>
 
-		<Route path="getAccounts">
-			<GetAccounts />
-		</Route>
+			<Route path="getAccounts">
+				<GetAccounts />
+			</Route>
 
-		<Route path="pagination">
-			<Pagination />
-		</Route>
+			<Route path="pagination">
+				<Pagination />
+			</Route>
 
-		<Route path="about">
-			<h3>About</h3>
-			<p>That's what it's all about!</p>
-		</Route>
-	</main>
-</Router>
+			<Route path="about">
+				<h3>About</h3>
+				<p>That's what it's all about!</p>
+			</Route>
+		</main>
+	</Router>
+</div>
+
+<style global lang="postcss">
+	@tailwind base;
+	@tailwind components;
+	@tailwind utilities;
+</style>

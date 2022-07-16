@@ -1,6 +1,7 @@
 // import { writable } from "svelte/store";
-import type { DataTableProps } from 'carbon-components-svelte/types/DataTable/DataTable.svelte';
-import { writable } from 'svelte-local-storage-store'
+import type { DataTableProps } from "carbon-components-svelte/types/DataTable/DataTable.svelte";
+import type { CarbonTheme } from "carbon-components-svelte/types/Theme/Theme.svelte";
+import { writable } from "svelte-local-storage-store";
 
 export type AccountPaginateSetting = {
 	pageSize: number;
@@ -17,3 +18,5 @@ export const accountPaginateSetting = writable<AccountPaginateSetting>("accountP
 	sortKey: null,
 	sortDirection: null,
 });
+
+export const carbonTheme = writable<CarbonTheme>("carbonTheme", "g90");
