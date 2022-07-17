@@ -10,7 +10,7 @@
   - [サーバ起動](#サーバ起動)
   - [データベース](#データベース)
   - [Node.jsのインストール](#Node.jsのインストール)
-    - [Visual Studio Codeでnpmコマンドが通らない場合](#Visual Studio Codeでnpmコマンドが通らない場合)
+    - [Visual_Studio_Codeでnpmコマンドが通らない場合](#Visual_Studio_Codeでnpmコマンドが通らない場合)
   - [フロントエンド(App)起動](#フロントエンド(App)起動)
   - [フロントエンド(Home)起動](#フロントエンド(Home)起動)
   - [テスト用のホスト名を登録](#テスト用のホスト名を登録)
@@ -78,7 +78,7 @@ pnpmをインストール※詳細は[こちら][:pnpm:]
 npm install -g pnpm
 ```
 
-#### Visual Studio Codeでnpmコマンドが通らない場合
+#### Visual_Studio_Codeでnpmコマンドが通らない場合
 
 RestrictedからRemoteSignedへ変更
 
