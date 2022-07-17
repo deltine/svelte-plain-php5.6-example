@@ -127,7 +127,7 @@
 	}
 </script>
 
-<div>pages</div>
+<h2 class="pb-5">This is Pagination.svelte</h2>
 
 <Button on:click={doFetch}>doFetch</Button>
 <Button on:click={doGetAccountsTest}>doGetAccountsTest</Button>

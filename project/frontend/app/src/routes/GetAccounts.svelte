@@ -48,7 +48,7 @@
 	};
 
 	onMount(async () => {
-		const url = "api/get_accounts.php";
+		const url = "https://example-php.jp/get_accounts.php";
 		let response = await fetch(url);
 		// console.log(response);
 		let json = await response.json();
@@ -78,7 +78,7 @@
 	}
 </script>
 
-get_accounts
+<h2 class="pb-5">This is GetAccounts.svelte</h2>
 
 <DataTable
 	sortable

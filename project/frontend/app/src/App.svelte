@@ -1,18 +1,18 @@
 <script lang="ts">
-	import { Router, Route, Link } from "svelte-navigator";
+	import { Router, Route, Link, navigate } from "svelte-navigator";
 	import type { CarbonTheme } from "carbon-components-svelte/types/Theme/Theme.svelte";
 	import LoginCheck from "./routes/LoginCheck.svelte";
 	import GetAccounts from "./routes/GetAccounts.svelte";
 	import Pagination from "./routes/Pagination.svelte";
 	import { carbonTheme } from "./routes/store";
 	import { Theme, RadioButtonGroup, RadioButton } from "carbon-components-svelte";
+	import PrivatePage from "./routes/PrivatePage.svelte";
 
 	let theme: CarbonTheme;
 
 	carbonTheme.subscribe((value) => {
 		theme = value;
 	});
-	// $: console.log("theme", theme);
 	$: carbonTheme.set(theme);
 </script>
 
@@ -20,7 +20,6 @@
 	<Router primary={false}>
 		<header>
 			<h1>Example</h1>
-			<h2>This is App.svelte</h2>
 
 			<Theme bind:theme />
 
@@ -33,6 +32,7 @@
 			<nav class="pt-6 text-xl">
 				<Link class="pl-0" to="/">Home</Link>
 				<Link class="pl-6" to="loginCheck">LoginCheck</Link>
+				<Link class="pl-6" to="private">private</Link>
 				<Link class="pl-6" to="getAccounts">GetAccounts</Link>
 				<Link class="pl-6" to="pagination">Pagination</Link>
 				<Link class="pl-6" to="about">about</Link>
@@ -40,10 +40,16 @@
 		</header>
 
 		<main class="pt-6">
-			<Route path="">Home!</Route>
+			<Route path="">
+				<h2>This is App.svelte</h2>
+			</Route>
 
 			<Route path="loginCheck">
 				<LoginCheck />
+			</Route>
+
+			<Route path="private">
+				<PrivatePage />
 			</Route>
 
 			<Route path="getAccounts">

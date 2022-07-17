@@ -20,3 +20,5 @@ export const accountPaginateSetting = writable<AccountPaginateSetting>("accountP
 });
 
 export const carbonTheme = writable<CarbonTheme>("carbonTheme", "g90");
+
+export const userName = writable<String>("userName", "user1");
