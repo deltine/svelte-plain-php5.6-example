@@ -48,7 +48,7 @@
 	};
 
 	onMount(async () => {
-		const url = "https://example-php.jp/get_accounts.php";
+		const url = process.env.PHP_ROOT + "/get_accounts.php";
 		let response = await fetch(url);
 		// console.log(response);
 		let json = await response.json();

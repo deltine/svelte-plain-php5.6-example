@@ -7,6 +7,7 @@
 	import { carbonTheme } from "./routes/store";
 	import { Theme, RadioButtonGroup, RadioButton } from "carbon-components-svelte";
 	import PrivatePage from "./routes/PrivatePage.svelte";
+	import Home from "./routes/Home.svelte";
 
 	let theme: CarbonTheme;
 
@@ -14,6 +15,8 @@
 		theme = value;
 	});
 	$: carbonTheme.set(theme);
+
+	console.log(process.env.PHP_ROOT);
 </script>
 
 <div>
@@ -41,7 +44,7 @@
 
 		<main class="pt-6">
 			<Route path="">
-				<h2>This is App.svelte</h2>
+				<Home />
 			</Route>
 
 			<Route path="loginCheck">

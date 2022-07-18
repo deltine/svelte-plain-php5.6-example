@@ -1,12 +1,13 @@
 <?php
 
-header("Access-Control-Allow-Origin: https://example-app.jp");
+require_once(__DIR__ . '/../protected/env.php');
+require_once(__DIR__ . '/../protected/database.php');
+require_once(__DIR__ . '/../protected/logger.php');
+
+header("Access-Control-Allow-Origin: " . $APP_ROOT);
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Disposition, Content-Type, Content-Length, Accept-Encoding");
 header('Context-Type: application/json');
-
-require_once(__DIR__ . '/../protected/database.php');
-require_once(__DIR__ . '/../protected/logger.php');
 
 // POSTリクエスト取得
 $requestBodyJson = file_get_contents('php://input');

@@ -9,7 +9,7 @@
 	});
 
 	const doLoginCheck = async () => {
-		const res = await fetch("https://example-php.jp/loginCheck.php", {
+		const res = await fetch(process.env.PHP_ROOT + "/loginCheck.php", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ username: userNameLocal }),

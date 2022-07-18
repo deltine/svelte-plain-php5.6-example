@@ -102,7 +102,7 @@
 	}
 
 	async function updateAccounts() {
-		const response = await fetch("https://example-php.jp/get_accounts_paginate.php", {
+		const response = await fetch(process.env.PHP_ROOT + "/get_accounts_paginate.php", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(accSetting),

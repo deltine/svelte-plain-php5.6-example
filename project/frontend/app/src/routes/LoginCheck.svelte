@@ -13,7 +13,7 @@
 	const doLogin = async () => {
 		const data = new FormData();
 		data.append("username", userNameLocal);
-		const res = await fetch("https://example-php.jp/loginUser.php", {
+		const res = await fetch(process.env.PHP_ROOT + "/loginUser.php", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ username: userNameLocal }),
@@ -27,7 +27,7 @@
 
 	let loginCheckMessage = "";
 	const doLoginCheck = async () => {
-		const res = await fetch("https://example-php.jp/loginCheck.php", {
+		const res = await fetch(process.env.PHP_ROOT + "/loginCheck.php", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ username: userNameLocal }),
@@ -40,7 +40,7 @@
 
 	let logoutMessage = "";
 	const doLogount = async () => {
-		const res = await fetch("https://example-php.jp/logout.php", {
+		const res = await fetch(process.env.PHP_ROOT + "/logout.php", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			credentials: "include",

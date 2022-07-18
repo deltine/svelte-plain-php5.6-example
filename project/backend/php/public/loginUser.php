@@ -1,6 +1,8 @@
 <?php
 
-header("Access-Control-Allow-Origin: https://example-app.jp");
+require_once(__DIR__ . '/../protected/env.php');
+
+header("Access-Control-Allow-Origin: " . $APP_ROOT);
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Disposition, Content-Type, Content-Length, Accept-Encoding");
 header("Access-Control-Allow-Credentials: true");
