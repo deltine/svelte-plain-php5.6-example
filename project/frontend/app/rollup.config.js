@@ -7,6 +7,7 @@ import sveltePreprocess from "svelte-preprocess";
 import typescript from "@rollup/plugin-typescript";
 import css from "rollup-plugin-css-only";
 import { optimizeImports, elements } from "carbon-preprocess-svelte";
+import replace from "@rollup/plugin-replace";
 import dotenv from "dotenv";
 
 // if (process.env.NODE_ENV !== "production") {
@@ -71,12 +72,15 @@ export default {
 				postcss: {
 					plugins: [require("tailwindcss"), require("autoprefixer")],
 				},
-				replace: [
-					["process.env.NODE_ENV", JSON.stringify(process.env.NODE_ENV)],
-					["process.env.PHP_ROOT", JSON.stringify(process.env.PHP_ROOT)],
-				],
 			}),
 		}),
+
+		replace({
+			preventAssignment: true,
+			"process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
+			"process.env.PHP_ROOT": JSON.stringify(process.env.PHP_ROOT),
+		}),
+
 		// we'll extract any component CSS out into
 		// a separate file - better for performance
 		css({ output: "bundle.css" }),

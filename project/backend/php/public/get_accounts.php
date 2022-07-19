@@ -13,7 +13,15 @@ try {
     $q = $db->prepare('select acc.account_id as id, acc.* from account acc;');
     $q->execute();
     $rows = $q->fetchAll();
-    echo '{"status":1, "data":' . json_encode($rows) . '}';
+
+    $response = array(
+        "status" => 1,
+        "data" => $rows,
+        "APP_ROOT" => $APP_ROOT
+    );
+    echo json_encode($response);
+
+    // echo '{"status":1, "data":' . json_encode($rows) . '}';
 } catch (PDOException $ex) {
     echo '{"status":2}';
     err('error executing query', $ex);
