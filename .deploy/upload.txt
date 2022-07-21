@@ -1,0 +1,7 @@
+option exclude "database.php"
+option exclude "env.php"
+open %1%
+lcd %2%
+cd %3%
+synchronize remote -delete -criteria=time
+exit
