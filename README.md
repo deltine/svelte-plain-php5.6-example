@@ -1,29 +1,6 @@
 # svelte-plain-php5.6-example
 
-フロントエンドをSvelte、バックエンドをプレーンなPHPで作成したサンプルです。
-
-## 目次
-
-- [概要](#概要)
-- [何故、プレーンなPHP5.6を使うんですか？](#何故、プレーンなPHP5.6を使うんですか？)
-- [インストール](#インストール)
-  - [サーバ起動](#サーバ起動)
-  - [データベース](#データベース)
-  - [Node.jsのインストール](#Node.jsのインストール)
-    - [Visual_Studio_Codeでnpmコマンドが通らない場合](#Visual_Studio_Codeでnpmコマンドが通らない場合)
-  - [フロントエンド(App)起動](#フロントエンド(App)起動)
-  - [フロントエンド(Home)起動](#フロントエンド(Home)起動)
-  - [テスト用のホスト名を登録](#テスト用のホスト名を登録)
-  - [実行](#実行)
-- [実装](#実装)
-  - [フロントエンドとバックエンドの分離方法](#フロントエンドとバックエンドの分離方法)
-  - [CORS対策](#CORS対策)
-    - [フロンドエンド](#フロンドエンド)
-    - [バックエンド](#バックエンド)
-  - [ログイン機能](#ログイン機能)
-  - [ページネーション機能](#ページネーション機能)
-  - [メール送信](#メール送信)
-  - [プライベート画面](#プライベート画面)
+フロントエンドを[Svelte][:svelte:]、バックエンドをプレーンなPHPで作成したサンプルです。
 
 ## 概要
 
@@ -37,6 +14,10 @@
 - メール送信
 - プライベート画面(ログインしたアカウントのみアクセス可能な画面)
 
+## 何故、Reactではなく、Svelteを使うんですか？
+
+[Svelte][:svelte:]はコード量が少なく、直観的です。バンドルサイズも小さくなり、高速なようです。
+
 ## 何故、プレーンなPHP5.6を使うんですか？
 
 格安のレンタルサーバーでフレームワークも使えない場合等、過酷なインフラ環境を想定しました。apacheでmod-rewriteが禁止されているとほぼフレームワークが使えません。使いたいような、使いたくないような、[そんなレンタルサーバー][:mugen:]があるんです。
@@ -46,13 +27,13 @@
 ### サーバ起動
 
 ```bash
-cd php-svelte-bridge-example
+cd svelte-plain-php5.6-example
 docker-compose up -d
 ```
 
 ### データベース
 
-データベース接続にMySQL Workbench等で接続
+データベースにMySQL Workbench等で接続
 
 ```bash
 Hostname:       127.0.0.1:3307
@@ -72,13 +53,13 @@ code .doc/DDL_DML.sql
 
 Node.jsのインストールは[こちら][:nodejs:]
 
-pnpmをインストール※詳細は[こちら][:pnpm:]
+pnpmのインストールは[こちら][:pnpm:]※必須ではありません
 
 ```bash
 npm install -g pnpm
 ```
 
-#### Visual_Studio_Codeでnpmコマンドが通らない場合
+#### Visual_Studio_Codeでnpmコマンドがエラーとなる場合
 
 RestrictedからRemoteSignedへ変更
 
@@ -276,6 +257,65 @@ https://example-app.jp/loginCheck
 https://example-app.jp/private
 ```
 
+## デプロイ
+
+どこにでもデプロイできる方法にこだわり、レンタルサーバーにデプロイできれば大体の環境で応用が利くと考えました。そこで[WinSCP][:WinSCP:]のCUIコマンドでデプロイバッチを作成する事にしました。
+
+### レンタルサーバーの登録
+
+無料期間がある[レンタルサーバー][:heteml:]を契約しました。
+
+### ドメイン取得
+
+[お名前.com][:onamea:]等でドメインを取得
+
+```bash
+example2022.xyz
+```
+
+### レンタルサーバーへドメインを登録
+
+取得したドメインを設定し、以下のサブドメインを作成しました。
+
+```bash
+app.example2022.xyz (フロントのアプリページ用)
+home.example2022.xyz (フロントのホームページ画面用)
+php.example2022.xyz (バックエンドのpublicなAPI用)
+```
+
+### WinSCPのインストール
+
+ダンロードは[こちら][:WinSCPDL:]
+使い方は割愛します。
+
+### WinSCPの接続情報の登録
+
+接続情報例
+<img width="175px" src=".image/winscp.png" />
+
+### deploy.batの編集
+
+SESSION、XXX_LOCAL、XXX__REMOTE変数を適宜変更
+
+```bash
+code .deploy/deploy.bat
+```
+
+### PHPのデプロイ前準備
+
+PHPのデプロイ対象がpublicなソースとprivateなソース(環境変数やdatabaseアクセスクラス等)が混じっているので、サーバーのprivateな場所にデプロイし、publicなソースをサーバーのpublicな場所へリンク作成します。
+
+```bash
+ln -s /home/users/0/deltine/php /home/users/0/deltine/web/example2022.xyz/php
+```
+
+### deploy.bat実行
+
+```bash
+.deploy/deploy.bat
+```
+
+[:svelte:]:         https://svelte.jp/
 [:nodejs:]:         https://nodejs.org/ja/
 [:pnpm:]:           https://pnpm.io/installation
 [:mugen:]:          http://mugenserver.jp/
@@ -283,4 +323,8 @@ https://example-app.jp/private
 [:php:]:            https://www.php.net/manual/ja/ref.session.php
 [:cors:]:           https://developer.mozilla.org/ja/docs/Web/HTTP/CORS
 [:Origin:]:         https://developer.mozilla.org/ja/docs/Glossary/Origin
-[:MailHog:]:         https://github.com/mailhog/MailHog
+[:MailHog:]:        https://github.com/mailhog/MailHog
+[:WinSCP:]:         https://winscp.net/eng/docs/lang:jp
+[:WinSCPDL:]:       https://forest.watch.impress.co.jp/library/software/winscp/
+[:onamea:]:         https://www.onamae.com/
+[:heteml:]:         https://admin.heteml.jp/
