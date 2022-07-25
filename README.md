@@ -303,7 +303,7 @@ code .deploy/deploy.bat
 
 ### PHPのデプロイ前準備
 
-PHPのデプロイ対象がpublicなソースとprivateなソース(環境変数やdatabaseアクセスクラス等)が混じっているので、サーバーのprivateな場所にデプロイし、publicなソースをサーバーのpublicな場所へリンク作成します。
+PHPのデプロイ対象がpublicなソースとprivateなソース(環境変数やdatabaseアクセスクラス等)が混在しているので、サーバーのprivateな場所にデプロイし、サーバーのpublicな場所へPHPのpublicなソースフォルダへリンクを作成します。
 
 ```bash
 ln -s /home/users/0/deltine/php /home/users/0/deltine/web/example2022.xyz/php

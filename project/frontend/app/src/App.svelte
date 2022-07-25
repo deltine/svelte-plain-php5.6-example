@@ -19,10 +19,16 @@
 	console.log(process.env.PHP_ROOT);
 </script>
 
+<svelte:head>
+	<title>svelte-plain-php5.6-example</title>
+	<meta name="robots" content="noindex nofollow" />
+	<html lang="en" />
+</svelte:head>
+
 <div>
 	<Router primary={false}>
 		<header>
-			<h1>Example</h1>
+			<h1>svelte-plain-php5.6-example</h1>
 
 			<Theme bind:theme />
 

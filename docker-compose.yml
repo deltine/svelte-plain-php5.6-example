@@ -16,8 +16,10 @@ services:
         environment:
             STAGE: local
             DOMAINS:
-                "example-home.jp -> http://example-home.jp, example-app.jp -> http://example-app.jp
-                , example-php.jp -> http://example-php.jp"
+                "example-home.jp -> http://example-home.jp,
+                example-app.jp -> http://example-app.jp,
+                example-php.jp -> http://example-php.jp,
+                example-laravel.jp -> http://example-laravel.jp"
         networks:
             - docker-net-php-test
 
@@ -38,9 +40,9 @@ services:
               source: ./.infra/docker/php/mail.ini
               target: /usr/local/etc/php/conf.d/mail.ini
             # ログは困った時に
-            # - type: bind
-            #   source: ./.log/apache2
-            #   target: /var/log/apache2
+            - type: bind
+              source: ./.log/apache2
+              target: /var/log/apache2
             # デプロイ
             # サーバールート※ドメインだけ指定された場合
             # - type: bind
@@ -61,6 +63,10 @@ services:
               source: ./project/backend/php
               target: /project/backend/php
             #   target: /var/www/html/example-app.jp/api
+            # laravel
+            - type: bind
+              source: ./project/backend/laravel
+              target: /project/backend/laravel
         links:
             - db
         networks:
@@ -69,6 +75,7 @@ services:
                     - example-home.jp
                     - example-app.jp
                     - example-php.jp
+                    - example-laravel.jp
 
     db:
         container_name: php-db
