@@ -290,8 +290,9 @@ php.example2022.xyz (バックエンドのpublicなAPI用)
 
 ### WinSCPの接続情報の登録
 
-接続情報例
-<img width="175px" src=".image/winscp.png" />
+接続情報例<br />
+
+<img width="400px" src=".image/winscp.png" />
 
 ### deploy.batの編集
 
